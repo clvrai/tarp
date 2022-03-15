@@ -1,0 +1,363 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!-- ======================================================================= -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<style type="text/css">
+  body {
+    font-family: "Titillium Web","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight:300;
+    font-size:18px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  h1 {
+    font-weight:300;
+  }
+
+  div {
+    max-width: 95%;
+    margin:auto;
+    padding: 10px;
+  }
+
+  .table-like {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .disclaimerbox {
+    background-color: #eee;
+    border: 1px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+    padding: 20px;
+  }
+
+  video.header-vid {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+
+  img.header-img {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img.rounded {
+    border: 1px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 10px;
+    display: block;
+    word-wrap: break-word;
+}
+
+  a:link,a:visited
+  {
+    color: #1367a7;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #208799;
+  }
+
+  td.dl-link {
+    height: 160px;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+            15px 15px 0 0px #fff, /* The fourth layer */
+            15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+            20px 20px 0 0px #fff, /* The fifth layer */
+            20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+            25px 25px 0 0px #fff, /* The fifth layer */
+            25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+    margin-left: 10px;
+    margin-right: 45px;
+  }
+
+
+  .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-bottom: 5px;
+  }
+
+  .vert-cent {
+    position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  hr
+  {
+    border: 0;
+    height: 1px;
+    max-width: 1100px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  }
+
+  #authors td {
+    padding-bottom:5px;
+    padding-top:30px;
+  }
+</style>
+<!-- ======================================================================= -->
+
+<!-- Start : Google Analytics Code -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-64069893-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-64069893-4');
+</script> -->
+<!-- End : Google Analytics Code -->
+
+<script type="text/javascript" src="resources/hidebib.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
+<head>
+<div max-width=100%>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" type="image/png" href="resources/clvr_icon.png">
+  <title>Task-Induced Representation Learning</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://kpertsch.github.io/" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <meta property="og:site_name" content="Task-Induced Representation Learning" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:title" content="Task-Induced Representation Learning" />
+  <meta property="og:description" content="Jun Yamada, Karl Pertsch, Anisha Gunjal, Joseph J. Lim. Task-Induced Representation Learning. ICLR 2022." />
+  <meta property="og:url" content="https://clvrai.github.io/tarp" />
+  <meta property="og:image" content="https://github.com/clvrai/tarp/docs/resources/teaser.png" />  <!-- UPDATE -->
+  <!--<meta property="og:video" content="https://www.youtube.com/v/axXx-x86IeY" />   &lt;!&ndash; UPDATE &ndash;&gt;-->
+
+  <meta property="article:publisher" content="https://kpertsch.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Task-Induced Representation Learning" />
+  <meta name="twitter:description" content="Jun Yamada, Karl Pertsch, Anisha Gunjal, Joseph J. Lim. Task-Induced Representation Learning. ICLR 2022." />
+  <meta name="twitter:url" content="https://clvrai.github.io/tarp" />
+  <meta name="twitter:image" content="https://github.com/clvrai/tarp/docs/resources/teaser.png" />   <!-- UPDATE -->
+  <meta property="og:image:width" content="3902" />
+  <meta property="og:image:height" content="1337" />
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:image" content="https://github.com/clvrai/tarp/docs/resources/teaser.png" />   <!-- UPDATE -->
+  <!--<meta name="twitter:player" content="https://www.youtube.com/embed/axXx-x86IeY?rel=0&showinfo=0" />   &lt;!&ndash; UPDATE &ndash;&gt;-->
+  <meta name="twitter:player:width" content="640" />
+  <meta name="twitter:player:height" content="360" />
+</head>
+
+<body>
+
+      <br>
+      <center><span style="font-size:44px;font-weight:bold;">Task-Induced Representation Learning</span></center><br/>
+      <div class="table-like" style="justify-content:space-evenly;max-width:1000px;margin:auto;">
+
+          <div><center><span style="font-size:25px"><a href="https://junjungoal.github.io/" target="_blank">Jun Yamada<sup>1</sup></a></span></center>
+          <!-- <center><span style="font-size:18px">USC</span></center> -->
+          </div>
+
+          <div><center><span style="font-size:25px"><a href="https://kpertsch.github.io/" target="_blank">Karl Pertsch<sup>2</sup></a></span></center>
+          <!-- <center><span style="font-size:18px">USC</span></center> -->
+          </div>
+
+          <div><center><span style="font-size:25px"><a href="https://anisha2102.github.io/" target="_blank">Anisha Gunjal<sup>1</sup></a></span></center>
+          <!-- <center><span style="font-size:18px">UPenn</span></center>-->          
+          </div>
+
+          <div><center><span style="font-size:25px"><a href="https://www.clvrai.com/" target="_blank">Joseph J. Lim<sup>1,2</sup></a></span></center>
+          <!-- <center><span style="font-size:18px">UC Berkeley</span></center> -->
+          </div>
+      </div>
+      <table align=center width=30% style="padding-top:0px;padding-bottom:0px">
+          <tr>
+            <td align=center><center><span style="font-size:20px"><sup>1</sup> University of Oxford,    <sup>2</sup> University of Southern California</span></center></td>
+          <tr/>
+      </table>
+      <center><span style="font-size:20px;">International Conference on Learning Representations (ICLR), 2022</span></center>
+
+      <div class="table-like" style="justify-content:space-evenly;max-width:500px;margin:auto;padding:5px">
+        <div><center><span style="font-size:28px"><a href="https://openreview.net/forum?id=OzyXtIZAzFv">[Paper]</a></span></center></div>  <!-- UPDATE -->
+        <div><center><span style="font-size:28px"><a href='https://github.com/clvrai/tarp'>[GitHub Code]</a></span></center> </div>   <!-- UPDATE -->
+        <!-- <div><center><span style="font-size:28px"><a href='https://youtu.be/w32twGTWvDU'>[Talk (5 min)]</a></span></center> </div> -->
+      </div>
+
+      <!-- ### VIDEO ### -->
+      <!-- <center>
+      <iframe width="768" height="432" max-width="100%" src="https://www.youtube.com/embed/axXx-x86IeY?autoplay=1&loop=1&playlist=axXx-x86IeY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center> -->
+      <!-- <iframe width="768" height="432" max-width="100%" src="resources/video.m4v" frameborder="0" allowfullscreen></iframe></center> -->
+      <!-- <br> -->
+
+      <br/><br>
+          <center><img src = "resources/teaser.png" width="800px"></img><br></center>
+      <br/>
+
+      <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+        We evaluate the effectiveness of representation learning approaches for decision making in visually complex environments with distractors. Common unsupervised representation learning approaches, based e.g. on prediction or contrastive objectives, learn to model all information in a scene, including distractors, potentially impairing the agent's learning efficiency. We compare them to an alternative class of approaches, which we call <b>task-induced representation learning</b>. They leverage task information such as rewards or demonstrations from prior tasks to focus on task-relevant parts of the scene and ignore distractors. We evaluate unsupervised and task-induced representation learning on four visually complex environments, from Distracting DMControl to the CARLA driving simulator. For both, RL and imitation learning, we find that representation learning generally improves sample efficiency on unseen tasks even in visually complex scenes and that task-induced representations can double learning efficiency compared to unsupervised alternatives.
+      </div>
+      <br><hr>
+
+
+      <!-- ################### OVERVIEW #################### -->
+
+      <center><h1>Task-Induced Representation Learning</h1></center>
+      <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+        Task-induced representation learning (TARP) leverages information from prior tasks to focus representation learning on the task-relevant aspects of the scene and ignore distractors. Below, we instantiate four objectives from the family of task-induced representation learning approaches that use reward or demonstration information from prior tasks for shaping the learned representations. This is not an exhaustive list of all TARP approaches and future work can e.g. investigate the use of language descriptions as an alternative form of task supervision.
+      </div>
+
+      <br> <center><img src = "resources/model.png" width="1000px"></img></center>
+
+      <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+        <h2>Value Prediction (TARP-V)</h2>
+        <div style="width:800px; margin:0 auto;padding:0px" align="justify">
+          Trains a representation by estimating the future discounted return of the data collection policy. Trains a separate prediction head per task in the pre-training data, on top of a shared representation encoder.
+        </div>
+
+        <h2>Offline RL (TARP-CQL)</h2>
+        <div style="width:800px; margin:0 auto;padding:0px" align="justify">
+          Performs multi-task offline RL on the pre-training data with separate policy heads and Q-functions for each pre-training task. All models share a common representation module.
+        </div>
+
+        <h2>Bisimulation (TARP-Bisim)</h2>
+        <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+          Uses a bisimulation objective that groups states based on their ``behavioral similarity'', measured as their expected future returns under arbitrary action sequences. We use separate heads for predicting the bisimulation distances and transition probabilities for each task. Following <a href="https://arxiv.org/abs/2006.10742">Zhang et al. (DBC)</a> we add an auxiliary per-task reward prediction objective.
+        </div>
+
+        <h2>Imitation Learning (TARP-BC)</h2>
+        <div style="width:800px; margin:0 auto;padding:0px" align="justify">
+          Trains a task-induced representation from data without reward annotation by directly imitating the data collection policy. We train a separate behavior cloning (BC) head for each task from the pre-training data, using a single shared representation encoder.
+        </div>
+      </div><br>
+      <hr>
+
+      <!-- ################### ENVIRONMENTS #################### -->
+
+      <center><h1>Environments</h1></center>
+      <center><img src = "resources/environments.png" width="1200px"></img></center><br>
+      <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+        We compare unsupervised and task-induced representation learning approaches across four visually complex environments with substantial distractors. <b>Distracting Control</b> overlays natural videos in the background of the DMControl Walker task. <b>ViZDoom</b> is an ego shooter game with task-irrelevant details in the appearance of agents and enemies as well as texture and lighting features of the environment. <b>Distracting MetaWorld</b> also uses natural videos as distractors in the background, but has a larger set of available training / testing tasks, allowing us to investigate effects of task diversity in the training data. <b>CARLA</b> is a complex driving simulator with natural distractors like the vegetation, architecture, car model and make as well as weather phenomena.
+      </div><br>
+      <hr>
+
+      <!-- ################### QUANTITATIVE RESULTS #################### -->
+
+      <center><h1>Representation Transfer Results</h1></center>
+      <center><img src = "resources/quant_results.png" width="1200px"></img></center><br>
+      <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+        Representation transfer performance comparison. For each environment, we pre-train each representation learning approach on an offline dataset collected across multiple pre-training tasks. We then freeze the pre-trained representation and transfer it to a target policy, which we train to solve an unseen target task. We compare unsupervised representation learning approaches based on reconstruction / prediction (green) and contrastive learning (brown) to task-induced representation learning approaches (blue). Across all tested environments we find that representation learning improves learning efficiency on downstream tasks and that task-induced representation can lead to substantially more efficient learning than unsupervised alternatives. We obtain comparable results when finetuning the transferred representation during target task policy training (see paper, Section C).
+
+        For more detailed analysis experiments, downstream imitation learning results and best-practices for task-induced representation learning, see the paper, Section 5.
+      </div><br>
+      <hr>
+
+      <!-- ################### QUALITATIVE RESULTS #################### -->
+
+      <center><h1>Visualizing the Learned Representations</h1></center>
+      <center><img src = "resources/quali_results.png" width="1000px"></img></center><br>
+      <div style="width:800px; margin:0 auto;padding:5px" align="justify">
+        We compute the input saliency maps for different representation learning approaches. Saliency maps visualize the average gradient magnitude for each input pixel with respect to the output representation and thus capture the contribution of each part of the input to the representation. We see that the task-induced representation (TARP-BC) can focus on the important aspects of the scene, such as the walker agent in distracting DMControl and other cars in CARLA. In contrast, the unsupervised approaches have high saliency values for scattered parts of the input and often represent task-irrelevant aspects such as changing background videos, buildings and trees, since they cannot differentiate task-relevant and irrelevant information. This supports our hypothesis that the improved learning efficiency of TARP approaches is a result of their ability to focus on modeling the task-relevant aspects of the scene.
+      </div><br>
+      <hr>
+
+      <!-- ################### CODE #################### -->
+      <center id="sourceCode"><h1>Source Code</h1></center>
+      <div style="width:800px; margin:0 auto; text-align=right">
+      We have released our implementation in PyTorch on the github page. Check it out!
+      </div>
+      <div class="table-like">
+        <span style="font-size:28px"><a href='https://github.com/clvrai/tarp'>[GitHub]</a></span>   <!-- UPDATE -->
+      </div>
+      <br><hr>
+
+      <!-- ################### CITATION #################### -->
+      <table align=center width=1000px>
+        <center><h1>Citation</h1></center>
+        <tr>
+        <td width=100%>
+        <pre><code style="display:block; white-space:pre-wrap">
+          @inproceedings{yamada2022tarp,
+            title={Task-Induced Representation Learning},
+            author={Jun Yamada and Karl Pertsch and Anisha Gunjal and Joseph J. Lim},
+            booktitle={International Conference on Learning Representations (ICLR)},
+            year={2022},
+          }
+        </code></pre>
+          </td>
+          </tr>
+      </table>
+    <br><hr>
+
+
+      <!-- <div style="width:800px; margin:0 auto; text-align=center">
+        <br>
+        <center>Code and full paper to be released soon.</center>
+      </div> -->
+      </table>
+
+<script xml:space="preserve" language="JavaScript">
+hideallbibs();
+</script>
+</div>
+</body>
+</html>

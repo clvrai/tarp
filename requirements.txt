@@ -1,0 +1,25 @@
+# core
+numpy
+matplotlib
+pillow
+h5py
+funcsigs
+scikit-image
+opencv-python
+moviepy
+torch==1.7.1
+torchvision==0.8.1
+tensorboard
+tensorboardX
+gym
+
+# RL
+wandb
+mpi4py
+mujoco_py
+git+https://github.com/kornia/kornia@164970d89d3ac331cf94a436b5c5efff7d8952bb
+git+git://github.com/junjungoal/dm_control.git
+git+git://github.com/denisyarats/dmc2gym.git
+vizdoom==1.1.7
+gibson2
+
