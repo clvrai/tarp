@@ -41,11 +41,6 @@ class ContrastiveModel(BaseModel):
             'use_convs': True,
             'detach_reconstruction': True,
             'n_cond_frames': 1,
-            'use_seg_mask': False,
-            'use_obj_reg': False,
-            'detach_seg_mask': True,
-            'detach_obj_decoder': True,
-            'seg_dec_activation': None,
             'n_class': 1,
             'use_random_rep': False,
             'target_network_update_factor': 0.01,   # percentage of new weights that are carried over
@@ -69,8 +64,7 @@ class ContrastiveModel(BaseModel):
 
         # Loss weights
         default_dict.update({
-            'img_mse_weight': 1.,
-            'reward_weights': 1.,
+            'img_mse_weight': 0.,
         })
         parent_params = super()._default_hparams()
         parent_params.overwrite(default_dict)
@@ -129,28 +123,12 @@ class ContrastiveModel(BaseModel):
 
         rec_input = output.enc.detach() if self._hp.detach_reconstruction else output.enc
         output.output_imgs = self.decoder(rec_input).images.unsqueeze(1)
-
-        if self._hp.use_seg_mask:
-            seg_input = output.enc.detach() if self._hp.detach_seg_mask else output.enc
-            output.output_seg = self.seg_decoder(seg_input).images.unsqueeze(1)
-
-        if self._hp.use_obj_reg:
-            obj_input = output.enc.detach() if self._hp.detach_obj_decoder else output.enc
-            output.obj_labels = AttrDict({name: self.decoder_obj[name](obj_input) for name in self._hp.obj_labels})
-
         return output
 
     def loss(self, model_output, inputs):
         losses = AttrDict()
 
         losses.seq_img_mse = L2Loss(self._hp.img_mse_weight)(model_output.output_imgs[:, 0], inputs.images[:, 0])
-
-        if self._hp.use_seg_mask:
-            losses.seq_seg_entropy = CELoss()(model_output.output_seg.reshape(self._hp.batch_size, self._hp.n_class, -1),
-                                              inputs.seg_targets[:, :1].reshape(self._hp.batch_size, -1))
-        if self._hp.use_obj_reg:
-            losses.update(AttrDict({name: BCELoss()(model_output.obj_labels[name], inputs.obj_labels[:, :1, i])
-                                    for i, name in enumerate(self._hp.obj_labels)}))
 
         labels = torch.arange(model_output.anchor_enc.shape[0], dtype=torch.long, device=self._hp.device)
 
@@ -167,18 +145,6 @@ class ContrastiveModel(BaseModel):
             # log predicted images
             img_strip = make_image_strip([inputs.images[:, 0, -min(int(self._hp.input_nc//self._hp.n_frames), 3):], model_output.output_imgs[:, 0, -min(int(self._hp.input_nc//self._hp.n_frames), 3):]])
             self._logger.log_images(img_strip[None], 'generation', step, phase)
-
-            if self._hp.use_seg_mask:
-                output_labels = torch.argmax(model_output.output_seg.squeeze(1), dim=1)
-                b, _, nc, h, w = model_output.output_seg.shape
-                pred_seg = torch.zeros((b, h, w, 3), device=self._hp.device)
-                gt_seg = torch.zeros((b, h, w, 3), device=self._hp.device)
-                for c in range(nc):
-                    pred_seg[output_labels==c] = inputs.color_map[0].squeeze(0)[c].type(torch.float32)
-                    gt_seg[inputs.seg_targets[:, :1].squeeze(1).squeeze(1)==c] = inputs.color_map[0].squeeze(0)[c].type(torch.float32)
-                mask_strip = make_image_strip([(inputs.images[:, 0, -min(int(self._hp.input_nc//self._hp.n_frames), 3):].repeat(1, 3, 1, 1)+1)*255/2,
-                                                gt_seg.permute((0, 3, 1, 2)), pred_seg.permute((0, 3, 1, 2))])
-                self._logger.log_images(mask_strip[None], 'segmentation', step, phase)
 
             # attention mask
             self._log_attention_mask(inputs, step, phase)
