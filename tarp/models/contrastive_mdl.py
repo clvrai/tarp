@@ -64,7 +64,7 @@ class ContrastiveModel(BaseModel):
 
         # Loss weights
         default_dict.update({
-            'img_mse_weight': 0.,
+            'img_mse_weight': 1.,
         })
         parent_params = super()._default_hparams()
         parent_params.overwrite(default_dict)
