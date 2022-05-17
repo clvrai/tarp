@@ -51,14 +51,11 @@ class TARPValueModel(BaseModel):
             'use_random_rep': False,
             'use_obj_labels': False,
             'normalization': 'none',
-            'use_wide_img': False
         })
 
         # Network size
         default_dict.update({
             'img_sz': 32,
-            'img_width': 64,  # used only when use_wide_img is True
-            'img_height': 64, # used only when use_wide_img is True
             'input_nc': 3,
             'ngf': 8,
             'nz_enc': 32,
@@ -90,18 +87,8 @@ class TARPValueModel(BaseModel):
             seg_decoder_hp.dec_last_activation = self._hp.seg_dec_activation
             self.seg_decoder = Decoder(seg_decoder_hp)
 
-        if self._hp.use_wide_img:
-            ratio = max(self._hp.img_width//self._hp.img_height, self._hp.img_height//self._hp.img_width)
-            input_size = self._hp.nz_enc * (ratio**2)
-        else:
-            input_size = self._hp.nz_enc
-
-        self.discounted_return_heads = nn.ModuleDict({name: Predictor(self._hp, input_size=input_size,
+        self.discounted_return_heads = nn.ModuleDict({name: Predictor(self._hp, input_size=self._hp.nz_enc,
                                                                       output_size=1, spatial=False) for name in self._task_names})
-
-
-        # self.discounted_return_heads = nn.ModuleDict({name: Predictor(self._hp, input_size=self._hp.nz_enc*self._hp.n_frames,
-        #                                                               output_size=1, spatial=False) for name in self._task_names})
 
     def forward(self, inputs):
         """
@@ -128,10 +115,6 @@ class TARPValueModel(BaseModel):
 
         # reward decoding
         discounted_return_input = output.pred.detach() if self._hp.detach_discounted_return_heads else output.pred
-        if self._hp.use_wide_img:
-            discounted_return_input = discounted_return_input.reshape((discounted_return_input.shape[0], -1))
-        # output.obj_labels = AttrDict({name: self.decoder_obj[name](discounted_return_input) for name in self._hp.obj_labels})
-        # discounted_return_input = torch.cat((discounted_return_input, inputs.timestep[:, 0][..., None, None, None]), dim=1)
         output.discounted_returns = AttrDict({name: self.discounted_return_heads[name](discounted_return_input)
                                    for name in self._task_names})
 

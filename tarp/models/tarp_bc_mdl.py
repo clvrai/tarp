@@ -57,8 +57,6 @@ class TARPBCModel(BaseModel):
         # Network size
         default_dict.update({
             'img_sz': 64,
-            'img_width': 64,  # used only when use_wide_img is True
-            'img_height': 64, # used only when use_wide_img is True
             'input_nc': 3,
             'ngf': 8,
             'nz_enc': 32,
@@ -88,12 +86,7 @@ class TARPBCModel(BaseModel):
             seg_decoder_hp.dec_last_activation = self._hp.seg_dec_activation
             self.seg_decoder = Decoder(seg_decoder_hp)
 
-        if self._hp.use_wide_img:
-            ratio = max(self._hp.img_width//self._hp.img_height, self._hp.img_height//self._hp.img_width)
-            input_size = self._hp.nz_enc * (ratio**2)
-        else:
-            input_size = self._hp.nz_enc
-        self.action_heads = nn.ModuleDict({name: Predictor(self._hp, input_size=input_size,
+        self.action_heads = nn.ModuleDict({name: Predictor(self._hp, input_size=self._hp.nz_enc,
                                                           output_size=self.action_output_size, spatial=False) for name in self._task_names})
 
     def forward(self, inputs):
@@ -115,8 +108,6 @@ class TARPBCModel(BaseModel):
             output.output_seg = self.seg_decoder(seg_input).images.unsqueeze(1)
 
         action_input = output.pred.detach() if self._hp.detach_action_head else output.pred
-        if self._hp.use_wide_img:
-            action_input = action_input.reshape((action_input.shape[0], -1))
         output.actions = AttrDict({name: self.action_heads[name](action_input) for name in self._task_names})
 
         return output
@@ -232,12 +223,7 @@ class TARPRecurrentBCModel(TARPBCModel):
     def build_network(self):
         self.encoder = Encoder(self._hp)
         self.decoder = Decoder(self._hp)
-        if self._hp.use_wide_img:
-            ratio = max(self._hp.img_width//self._hp.img_height, self._hp.img_height//self._hp.img_width)
-            lstm_input_size = self._hp.nz_enc * (ratio**2)
-        else:
-            lstm_input_size = self._hp.nz_enc
-        self.lstm = nn.LSTM(lstm_input_size, self._hp.nz_mid_lstm, bidirectional=False, batch_first=True)
+        self.lstm = nn.LSTM(self._hp.nz_enc, self._hp.nz_mid_lstm, bidirectional=False, batch_first=True)
 
         if self._hp.use_seg_mask:
             seg_decoder_hp = deepcopy(self._hp)
@@ -257,8 +243,6 @@ class TARPRecurrentBCModel(TARPBCModel):
         # encode inputs
         enc = batch_apply(inputs.images, self.encoder)
         output.update({'pred': enc.view(enc.shape[0]*enc.shape[1], *enc.shape[2:]), 'rec_input': enc.view(enc.shape[0]*enc.shape[1], *enc.shape[2:])})
-        if self._hp.use_wide_img:
-            enc = enc.reshape((enc.shape[0], enc.shape[1], -1, 1))
         h_t, _ = self.lstm(enc.squeeze())
         action_input = h_t.reshape(h_t.shape[0]*h_t.shape[1], *h_t.shape[2:]).unsqueeze(2).unsqueeze(2)
         output.actions = AttrDict({name: self.action_heads[name](action_input) for name in self._task_names})

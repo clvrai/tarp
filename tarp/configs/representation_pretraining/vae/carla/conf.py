@@ -33,9 +33,6 @@ model_config = {
     'input_nc': 9,
     'normalization': 'none',
     'target_kl': 10.0,
-    # 'use_wide_img': True,
-    # 'img_width': 192,
-    # 'img_height': 64
 }
 
 # Dataset

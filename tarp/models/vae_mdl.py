@@ -48,14 +48,11 @@ class VAE(BaseModel, ProbabilisticModel):
             'pixel_shift_decoder': False,
             'use_convs': True,
             'normalization': 'batch',
-            'use_wide_img': False
         })
 
         # Network size
         default_dict.update({
             'img_sz': 32,  # image resolution
-            'img_width': 64,  # used only when use_wide_img is True
-            'img_height': 64, # used only when use_wide_img is True
             'input_nc': 3,  # number of input feature maps
             'ngf': 4,  # number of feature maps in shallowest level
             'nz_enc': 32,  # number of dimensions in encoder-latent space
@@ -78,12 +75,7 @@ class VAE(BaseModel, ProbabilisticModel):
     
     def build_network(self):
         self.encoder = Encoder(self._hp)
-        if self._hp.use_wide_img:
-            ratio = max(self._hp.img_width//self._hp.img_height, self._hp.img_height//self._hp.img_width)
-            input_size = self._hp.nz_enc * (ratio**2)
-        else:
-            input_size = self._hp.nz_enc
-        self.enc2z = torch.nn.Linear(input_size, self._hp.nz_vae*2)
+        self.enc2z = torch.nn.Linear(self._hp.nz_enc, self._hp.nz_vae*2)
         self.z2enc = torch.nn.Linear(self._hp.nz_vae, input_size)
         self.decoder = Decoder(self._hp)
     
